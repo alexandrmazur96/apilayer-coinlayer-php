@@ -1,0 +1,50 @@
+name: Run all checks
+on: [push, pull_request]
+
+jobs:
+  checks:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get Composer Cache Directories
+        id: composer-cache
+        run: |
+          echo "::set-output name=files_cache::$(composer config cache-files-dir)"
+          echo "::set-output name=vcs_cache::$(composer config cache-vcs-dir)"
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.composer-cache.outputs.files_cache }}
+            ${{ steps.composer-cache.outputs.vcs_cache }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Set up bamarni plugin
+        run: composer global require bamarni/composer-bin-plugin
+
+      - name: Install dev tools
+        run: composer bin qa require php-parallel-lint/php-parallel-lint=^1.2 squizlabs/php_codesniffer=^3.5 vimeo/psalm=^4.1
+
+      - name: Run composer install
+        run: composer install -o
+
+      - name: Dump autoload
+        run: composer dump-autoload -o
+
+      - name: Create the folder for test reports
+        run: mkdir test-reports
+
+      - name: Lint
+        run: vendor/bin/parallel-lint src
+
+      - name: CS
+        run: php vendor/bin/phpcs --report=checkstyle -q --parallel=1 .
+
+      - name: Unit tests
+        run: php vendor/bin/phpunit tests
+
+      - name: Psalm tests
+        run: php vendor/bin/psalm --show-info=true ./
