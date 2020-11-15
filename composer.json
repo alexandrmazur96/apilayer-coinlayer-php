@@ -4,12 +4,12 @@
   "keywords": [
     "apilayer",
     "apilayer client",
-    "coinlyaer",
-    "coinlyaer client",
-    "coinlyaer sdk",
-    "coinlyaer php",
-    "coinlyaer php sdk",
-    "apilayer coinlyaer sdk"
+    "coinlayer",
+    "coinlayer client",
+    "coinlayer sdk",
+    "coinlayer php",
+    "coinlayer php sdk",
+    "apilayer coinlayer sdk"
   ],
   "type": "library",
   "license": ["MIT"],
