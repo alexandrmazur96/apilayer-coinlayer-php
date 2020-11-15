@@ -65,7 +65,7 @@ try {
     /**
      * This exception may be caused by the different reasons:
      * - HTTP client throw an error (exception would be caught and re-thrown
-     *          by CurrencylayerException with same parameters);
+     *          by CoinlayerException with same parameters);
      * - Unable to decode response JSON (Unlikely);
      * - API respond without 'success' key - in this case check exception
      *          message about what exactly API respond;

@@ -5,7 +5,7 @@ namespace Apilayer\Coinlayer\Responses\Factories;
 use Apilayer\Coinlayer\Exceptions\ApiFailedResponseException;
 
 /**
- * @psalm-import-type _ApiFailed from \Apilayer\Currencylayer\CurrencylayerClient
+ * @psalm-import-type _ApiFailed from \Apilayer\Coinlayer\CoinlayerClient
  * @psalm-template T
  */
 trait ResponseFactoryTrait
@@ -21,7 +21,7 @@ trait ResponseFactoryTrait
             /** @psalm-var array $rawResponse */
             throw new ApiFailedResponseException(
                 sprintf(
-                    'Unexpected response from currencylayer API - %s',
+                    'Unexpected response from coinlayer API - %s',
                     json_encode($rawResponse)
                 ),
                 0,
