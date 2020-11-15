@@ -10,6 +10,16 @@ use Apilayer\Coinlayer\Responses\Factories\ResponseFactoryInterface;
  */
 class ListAction implements ActionInterface
 {
+    private ?string $callback;
+
+    /**
+     * @param string|null $callback
+     */
+    public function __construct(?string $callback)
+    {
+        $this->callback = $callback;
+    }
+
     /**
      * @psalm-return ActionInterface::ENDPOINT_LIST
      */
@@ -18,9 +28,18 @@ class ListAction implements ActionInterface
         return ActionInterface::ENDPOINT_LIST;
     }
 
+    /**
+     * @psalm-return array{callback?:string}
+     */
     public function getData(): array
     {
-        return [];
+        $request = [];
+
+        if ($this->callback !== null) {
+            $request['callback'] = $this->callback;
+        }
+
+        return $request;
     }
 
     public function getResponseFactory(): ResponseFactoryInterface
