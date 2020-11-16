@@ -24,8 +24,8 @@ class ChangeTest extends TestCase
         $changeAction = new Change(
             new DateTimeImmutable('2020-01-01'),
             new DateTimeImmutable('2020-01-25'),
-            TargetCurrency::UAH,
-            [CryptoCurrency::BTC],
+            null,
+            null,
             null
         );
         self::assertEquals(ActionInterface::ENDPOINT_CHANGE, $changeAction->getEndpoint());
