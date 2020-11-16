@@ -62,8 +62,6 @@ class ChangeTest extends TestCase
 
     /**
      * @dataProvider getDataProvider
-     * @param DateTimeImmutable $startDate
-     * @param DateTimeImmutable $endDate
      * @param string|null $target
      * @param array|null $symbols
      * @param string|null $callback
@@ -71,20 +69,24 @@ class ChangeTest extends TestCase
      * @throws InvalidArgumentException
      */
     public function testGetData(
-        DateTimeImmutable $startDate,
-        DateTimeImmutable $endDate,
         ?string $target,
         ?array $symbols,
         ?string $callback,
         array $expectedData
     ): void {
         $changeAction = new Change(
-            $startDate,
-            $endDate,
+            new DateTimeImmutable('2020-01-01'),
+            new DateTimeImmutable('2020-01-25'),
             $target,
             $symbols,
             $callback
         );
+
+        $defaultExpectedData = [
+            'start_date' => '2020-01-01',
+            'end_date' => '2020-01-25',
+        ];
+        $expectedData = array_merge($defaultExpectedData, $expectedData);
 
         $actualData = $changeAction->getData();
         self::assertEquals($expectedData, $actualData);
@@ -93,68 +95,47 @@ class ChangeTest extends TestCase
     public function getDataProvider(): Generator
     {
         yield 'without-optional' => [
-            new DateTimeImmutable('2020-01-01'),
-            new DateTimeImmutable('2020-01-25'),
             null,
             null,
             null,
-            [
-                'start_date' => '2020-01-01',
-                'end_date' => '2020-01-25',
-            ],
+            [],
         ];
 
         yield 'with-optional-target' => [
-            new DateTimeImmutable('2020-01-01'),
-            new DateTimeImmutable('2020-01-25'),
             TargetCurrency::UAH,
             null,
             null,
             [
-                'start_date' => '2020-01-01',
-                'end_date' => '2020-01-25',
                 'target' => TargetCurrency::UAH,
             ],
         ];
 
         yield 'with-optional-symbols' => [
-            new DateTimeImmutable('2020-01-01'),
-            new DateTimeImmutable('2020-01-25'),
             null,
             [CryptoCurrency::BTC],
             null,
             [
-                'start_date' => '2020-01-01',
-                'end_date' => '2020-01-25',
                 'symbols' => [CryptoCurrency::BTC],
             ],
         ];
 
         yield 'with-optional-callback' => [
-            new DateTimeImmutable('2020-01-01'),
-            new DateTimeImmutable('2020-01-25'),
             null,
             null,
             'some_callback',
             [
-                'start_date' => '2020-01-01',
-                'end_date' => '2020-01-25',
                 'callback' => 'some_callback',
             ],
         ];
 
         yield 'with-filled-optional' => [
-            new DateTimeImmutable('2020-01-01'),
-            new DateTimeImmutable('2020-01-25'),
             TargetCurrency::UAH,
             [CryptoCurrency::BTC],
             'some_callback',
             [
-                'start_date' => '2020-01-01',
-                'end_date' => '2020-01-25',
                 'target' => TargetCurrency::UAH,
                 'symbols' => [CryptoCurrency::BTC],
-                'callback' => 'some_callback'
+                'callback' => 'some_callback',
             ],
         ];
     }
