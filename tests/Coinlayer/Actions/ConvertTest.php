@@ -10,6 +10,9 @@ use Apilayer\Tests\TestCase;
 use DateTimeImmutable;
 use Generator;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class ConvertTest extends TestCase
 {
     /**

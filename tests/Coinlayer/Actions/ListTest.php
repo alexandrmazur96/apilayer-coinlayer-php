@@ -6,6 +6,9 @@ use Apilayer\Coinlayer\Actions\ActionInterface;
 use Apilayer\Coinlayer\Actions\ListAction;
 use Apilayer\Tests\TestCase;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class ListTest extends TestCase
 {
     public function testGetEndpoint(): void

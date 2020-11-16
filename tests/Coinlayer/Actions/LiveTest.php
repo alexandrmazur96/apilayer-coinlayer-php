@@ -10,6 +10,9 @@ use Apilayer\Coinlayer\Exceptions\InvalidArgumentException;
 use Apilayer\Tests\TestCase;
 use Generator;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class LiveTest extends TestCase
 {
     public function testGetEndpoint(): void
@@ -27,7 +30,7 @@ class LiveTest extends TestCase
     /**
      * @dataProvider createObjFailureData
      * @param string|null $target
-     * @param array|null $symbols
+     * @param string[]|null $symbols
      * @param string $expectedExceptionMessage
      */
     public function testCreateObjFailure(
@@ -49,7 +52,7 @@ class LiveTest extends TestCase
     /**
      * @dataProvider getDataProvider
      * @param string|null $target
-     * @param array|null $symbols
+     * @param string[]|null $symbols
      * @param bool|null $expand
      * @param string|null $callback
      * @param array $expectedData

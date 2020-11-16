@@ -5,11 +5,15 @@ namespace Apilayer\Tests\Coinlayer\Actions;
 use Apilayer\Coinlayer\Actions\ActionInterface;
 use Apilayer\Coinlayer\Actions\Timeframe;
 use Apilayer\Coinlayer\Enums\CryptoCurrency;
+use Apilayer\Coinlayer\Enums\TargetCurrency;
 use Apilayer\Coinlayer\Exceptions\InvalidArgumentException;
 use Apilayer\Tests\TestCase;
 use DateTimeImmutable;
 use Generator;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class TimeframeTest extends TestCase
 {
     /**
@@ -34,7 +38,7 @@ class TimeframeTest extends TestCase
      * @param DateTimeImmutable $startDate
      * @param DateTimeImmutable $endDate
      * @param string|null $target
-     * @param array|null $symbols
+     * @param string[]|null $symbols
      * @param string $expectedExceptionMessage
      * @throws InvalidArgumentException
      */
@@ -56,6 +60,41 @@ class TimeframeTest extends TestCase
             null,
             null
         );
+    }
+
+    /**
+     * @dataProvider getDataProvider
+     * @param string|null $target
+     * @param string[]|null $symbols
+     * @param bool|null $expand
+     * @param string|null $callback
+     * @param array $expectedData
+     * @throws InvalidArgumentException
+     */
+    public function testGetData(
+        ?string $target,
+        ?array $symbols,
+        ?bool $expand,
+        ?string $callback,
+        array $expectedData
+    ): void {
+        $timeframeAction = new Timeframe(
+            new DateTimeImmutable('2020-01-01'),
+            new DateTimeImmutable('2020-01-25'),
+            $target,
+            $symbols,
+            $expand,
+            $callback
+        );
+
+        $defaultExpectedData = [
+            'start_date' => '2020-01-01',
+            'end_date' => '2020-01-25',
+        ];
+
+        $expectedData = array_merge($defaultExpectedData, $expectedData);
+
+        self::assertEquals($expectedData, $timeframeAction->getData());
     }
 
     public function createObjFailureData(): Generator
@@ -98,6 +137,72 @@ class TimeframeTest extends TestCase
             null,
             [],
             'If symbols passed they should not be empty',
+        ];
+    }
+
+    public function getDataProvider(): Generator
+    {
+        yield 'with-optional-target' => [
+            TargetCurrency::UAH,
+            null,
+            null,
+            null,
+            [
+                'target' => TargetCurrency::UAH,
+            ],
+        ];
+
+        yield 'with-optional-symbols' => [
+            null,
+            [CryptoCurrency::BTC],
+            null,
+            null,
+            [
+                'symbols' => [CryptoCurrency::BTC],
+            ],
+        ];
+
+        yield 'with-optional-expand-1' => [
+            null,
+            null,
+            true,
+            null,
+            [
+                'expand' => 1,
+            ],
+        ];
+
+        yield 'with-optional-expand-2' => [
+            null,
+            null,
+            false,
+            null,
+            [
+                'expand' => 0,
+            ],
+        ];
+
+        yield 'with-optional-callback' => [
+            null,
+            null,
+            null,
+            'some_callback',
+            [
+                'callback' => 'some_callback',
+            ],
+        ];
+
+        yield 'with-filled-optional' => [
+            TargetCurrency::UAH,
+            [CryptoCurrency::BTC],
+            true,
+            'some_callback',
+            [
+                'target' => TargetCurrency::UAH,
+                'symbols' => [CryptoCurrency::BTC],
+                'expand' => 1,
+                'callback' => 'some_callback',
+            ],
         ];
     }
 }

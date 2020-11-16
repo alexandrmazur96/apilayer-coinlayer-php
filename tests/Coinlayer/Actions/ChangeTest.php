@@ -36,7 +36,7 @@ class ChangeTest extends TestCase
      * @param DateTimeImmutable $startDate
      * @param DateTimeImmutable $endDate
      * @param string $target
-     * @param array $symbols
+     * @param string[] $symbols
      * @param string $expectedExceptionMessage
      *
      * @throws InvalidArgumentException
@@ -63,7 +63,7 @@ class ChangeTest extends TestCase
     /**
      * @dataProvider getDataProvider
      * @param string|null $target
-     * @param array|null $symbols
+     * @param string[]|null $symbols
      * @param string|null $callback
      * @param array $expectedData
      * @throws InvalidArgumentException

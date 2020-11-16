@@ -10,6 +10,9 @@ use Apilayer\Tests\TestCase;
 use DateTimeImmutable;
 use Generator;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class HistoricalTest extends TestCase
 {
     /**
@@ -31,7 +34,7 @@ class HistoricalTest extends TestCase
     /**
      * @dataProvider createObjFailureData
      * @param string|null $target
-     * @param array|null $symbols
+     * @param string[]|null $symbols
      * @param string $expectedExceptionMessage
      * @throws InvalidArgumentException
      */
@@ -52,7 +55,7 @@ class HistoricalTest extends TestCase
     /**
      * @dataProvider getDataProvider
      * @param string|null $target
-     * @param array|null $symbols
+     * @param string[]|null $symbols
      * @param bool|null $expand
      * @param string|null $callback
      * @param array $expectedData
