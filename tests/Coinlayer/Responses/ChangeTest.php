@@ -11,6 +11,9 @@ use DateTimeImmutable;
 use Exception;
 use JsonException;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class ChangeTest extends TestCase
 {
 
