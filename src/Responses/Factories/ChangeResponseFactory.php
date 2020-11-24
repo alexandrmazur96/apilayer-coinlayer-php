@@ -2,6 +2,7 @@
 
 namespace Apilayer\Coinlayer\Responses\Factories;
 
+use Apilayer\Coinlayer\Exceptions\CoinlayerErrorCodes;
 use Apilayer\Coinlayer\Exceptions\CoinlayerException;
 use Apilayer\Coinlayer\Responses\Change;
 use Apilayer\Coinlayer\Responses\DataAbstractResponse;
@@ -32,7 +33,12 @@ class ChangeResponseFactory implements ResponseFactoryInterface
         } catch (ApiFailedResponseException $e) {
             /** @psalm-var _ApiFailed $rawResponse */
             $rawResponse = $e->getRawErrorResponse();
-            throw new CoinlayerException($e->getMessage(), $e->getCode(), $e, $rawResponse['error']['type']);
+            throw new CoinlayerException(
+                $e->getMessage(),
+                $e->getCode(),
+                $e,
+                $rawResponse['error']['type'] ?? CoinlayerErrorCodes::TYPE_INTERNAL_LIB_ERROR
+            );
         }
 
         /** @psalm-var _Change $rawResponse */
