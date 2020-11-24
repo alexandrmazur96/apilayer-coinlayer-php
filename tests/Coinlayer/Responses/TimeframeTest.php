@@ -10,6 +10,9 @@ use DateTimeImmutable;
 use Exception;
 use JsonException;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class TimeframeTest extends TestCase
 {
     /**

@@ -9,6 +9,9 @@ use Apilayer\Tests\TestCase;
 use DateTimeImmutable;
 use JsonException;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class LiveTest extends TestCase
 {
     /**
