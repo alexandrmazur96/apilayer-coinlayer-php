@@ -4,6 +4,7 @@ namespace Apilayer\Coinlayer\Exceptions;
 
 /**
  * Represents error code to error type mapping.
+ *
  * @link https://coinlayer.com/documentation#errors
  */
 abstract class CoinlayerErrorCodes
@@ -24,6 +25,7 @@ abstract class CoinlayerErrorCodes
     public const CODE_503 = 503;
     public const CODE_504 = 504;
     public const CODE_505 = 505;
+    public const CODE_0 = 0;
 
     /** The requested resource does not exist. */
     public const TYPE_404_NOT_FOUND = '404_not_found';
@@ -57,6 +59,8 @@ abstract class CoinlayerErrorCodes
     public const TYPE_INVALID_TIME_FRAME = 'invalid_time_frame';
     /** The specified timeframe is too long, exceeding 365 days. [timeframe, change] */
     public const TYPE_TIME_FRAME_TOO_LONG = 'time_frame_too_long';
+    /** Internal library error */
+    public const TYPE_INTERNAL_LIB_ERROR = 'internal_lib_error';
 
     /**
      * @psalm-var array<self::CODE_*,self::TYPE_*>
@@ -78,6 +82,7 @@ abstract class CoinlayerErrorCodes
         self::CODE_503 => self::TYPE_INVALID_END_DATE,
         self::CODE_504 => self::TYPE_INVALID_TIME_FRAME,
         self::CODE_505 => self::TYPE_TIME_FRAME_TOO_LONG,
+        self::CODE_0 => self::TYPE_INTERNAL_LIB_ERROR,
     ];
 
     /**
@@ -100,5 +105,6 @@ abstract class CoinlayerErrorCodes
         self::TYPE_INVALID_END_DATE => self::CODE_503,
         self::TYPE_INVALID_TIME_FRAME => self::CODE_504,
         self::TYPE_TIME_FRAME_TOO_LONG => self::CODE_505,
+        self::TYPE_INTERNAL_LIB_ERROR => self::CODE_0,
     ];
 }
