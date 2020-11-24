@@ -81,8 +81,7 @@ class HistoricalTest extends TestCase
                         CryptoCurrency::ABC => 59.99,
                         CryptoCurrency::ACP => 0.014931,
                     ],
-                ]
-                ,
+                ],
                 JSON_THROW_ON_ERROR
             ),
             json_encode($historicalResponse, JSON_THROW_ON_ERROR)
