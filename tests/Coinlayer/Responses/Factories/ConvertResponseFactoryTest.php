@@ -1,6 +1,6 @@
 <?php
 
-namespace Apilayer\Tests\Responses\Factories;
+namespace Apilayer\Tests\Coinlayer\Responses\Factories;
 
 use Apilayer\Coinlayer\Enums\CryptoCurrency;
 use Apilayer\Coinlayer\Exceptions\CoinlayerErrorCodes;

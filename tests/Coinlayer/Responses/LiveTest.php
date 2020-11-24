@@ -1,6 +1,6 @@
 <?php
 
-namespace Apilayer\Tests\Responses;
+namespace Apilayer\Tests\Coinlayer\Responses;
 
 use Apilayer\Coinlayer\Enums\CryptoCurrency;
 use Apilayer\Coinlayer\Enums\TargetCurrency;
