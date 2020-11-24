@@ -47,7 +47,7 @@ use Apilayer\Coinlayer\Enums\CryptoCurrency;
  * @psalm-type _List=array{
  *      success:bool,
  *      crypto:array<CryptoCurrency::*, _CryptoCurrencyInfo>,
- *      fiat:array<TargetCurrency::*, CryptoCurrency::*>
+ *      fiat:array<TargetCurrency::*, string>
  * }
  *
  * @psalm-type _Live=array{
