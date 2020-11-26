@@ -39,8 +39,8 @@ class Convert implements ActionInterface
         string $from,
         string $to,
         float $amount,
-        ?DateTimeInterface $date,
-        ?string $callback
+        ?DateTimeInterface $date = null,
+        ?string $callback = null
     ) {
         $this->assertSymbol($from);
         $this->assertSymbol($to);

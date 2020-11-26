@@ -15,7 +15,7 @@ class ListAction implements ActionInterface
     /**
      * @param string|null $callback
      */
-    public function __construct(?string $callback)
+    public function __construct(?string $callback = null)
     {
         $this->callback = $callback;
     }

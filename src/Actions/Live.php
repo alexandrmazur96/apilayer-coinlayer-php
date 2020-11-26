@@ -34,8 +34,12 @@ class Live implements ActionInterface
      * @param string|null $callback
      * @throws InvalidArgumentException
      */
-    public function __construct(?string $target, ?array $symbols, ?bool $expand, ?string $callback)
-    {
+    public function __construct(
+        ?string $target = null,
+        ?array $symbols = null,
+        ?bool $expand = null,
+        ?string $callback = null
+    ) {
         if ($target !== null) {
             /** @psalm-var TargetCurrency::* $target */
             $this->assertTargetCurrency($target);
@@ -75,7 +79,7 @@ class Live implements ActionInterface
         }
 
         if ($this->expand !== null) {
-            $request['expand'] = (int) $this->expand;
+            $request['expand'] = (int)$this->expand;
         }
 
         if ($this->callback !== null) {

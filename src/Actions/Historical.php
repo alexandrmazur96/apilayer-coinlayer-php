@@ -39,10 +39,10 @@ class Historical implements ActionInterface
      */
     public function __construct(
         DateTimeInterface $historicalDate,
-        ?string $target,
-        ?array $symbols,
-        ?bool $expand,
-        ?string $callback
+        ?string $target = null,
+        ?array $symbols = null,
+        ?bool $expand = null,
+        ?string $callback = null
     ) {
         if ($target !== null) {
             /** @psalm-var TargetCurrency::* $target */
@@ -82,7 +82,7 @@ class Historical implements ActionInterface
         }
 
         if ($this->expand !== null) {
-            $request['expand'] = (int) $this->expand;
+            $request['expand'] = (int)$this->expand;
         }
 
         if ($this->callback !== null) {

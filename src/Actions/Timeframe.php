@@ -26,7 +26,7 @@ class Timeframe implements ActionInterface
     private DateTimeInterface $startDate;
     private DateTimeInterface $endDate;
 
-    /** @psalm-var TargetCurrency::*|null  */
+    /** @psalm-var TargetCurrency::*|null */
     private ?string $target;
     /** @psalm-var non-empty-list<CryptoCurrency::*>|null */
     private ?array $symbols;
@@ -45,10 +45,10 @@ class Timeframe implements ActionInterface
     public function __construct(
         DateTimeInterface $startDate,
         DateTimeInterface $endDate,
-        ?string $target,
-        ?array $symbols,
-        ?bool $expand,
-        ?string $callback
+        ?string $target = null,
+        ?array $symbols = null,
+        ?bool $expand = null,
+        ?string $callback = null
     ) {
         $this->assertDates($startDate, $endDate);
         if ($target !== null) {
@@ -92,7 +92,7 @@ class Timeframe implements ActionInterface
         }
 
         if ($this->expand !== null) {
-            $request['expand'] = (int) $this->expand;
+            $request['expand'] = (int)$this->expand;
         }
 
         if ($this->callback !== null) {
