@@ -12,8 +12,7 @@ use Apilayer\Coinlayer\Enums\CryptoCurrency;
  * @psalm-type _LiveActionData=array{
  *      target?:TargetCurrency::*,
  *      symbols?:non-empty-list<CryptoCurrency::*>,
- *      expand?:0|1,
- *      callback?:string
+ *      expand?:0|1
  * }
  */
 class Live implements ActionInterface
@@ -25,20 +24,17 @@ class Live implements ActionInterface
     /** @psalm-var non-empty-list<CryptoCurrency::*>|null */
     private ?array $symbols;
     private ?bool $expand;
-    private ?string $callback;
 
     /**
      * @param string|null $target
      * @param string[]|null $symbols
      * @param bool|null $expand
-     * @param string|null $callback
      * @throws InvalidArgumentException
      */
     public function __construct(
         ?string $target = null,
         ?array $symbols = null,
-        ?bool $expand = null,
-        ?string $callback = null
+        ?bool $expand = null
     ) {
         if ($target !== null) {
             /** @psalm-var TargetCurrency::* $target */
@@ -52,7 +48,6 @@ class Live implements ActionInterface
         $this->target = $target;
         $this->symbols = $symbols;
         $this->expand = $expand;
-        $this->callback = $callback;
     }
 
     /**
@@ -80,10 +75,6 @@ class Live implements ActionInterface
 
         if ($this->expand !== null) {
             $request['expand'] = (int)$this->expand;
-        }
-
-        if ($this->callback !== null) {
-            $request['callback'] = $this->callback;
         }
 
         return $request;

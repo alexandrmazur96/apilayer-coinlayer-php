@@ -20,7 +20,6 @@ class LiveTest extends TestCase
         $liveAction = new Live(
             null,
             null,
-            null,
             null
         );
 
@@ -44,7 +43,6 @@ class LiveTest extends TestCase
         new Live(
             $target,
             $symbols,
-            null,
             null
         );
     }
@@ -54,7 +52,6 @@ class LiveTest extends TestCase
      * @param string|null $target
      * @param string[]|null $symbols
      * @param bool|null $expand
-     * @param string|null $callback
      * @param array $expectedData
      * @throws InvalidArgumentException
      */
@@ -62,14 +59,12 @@ class LiveTest extends TestCase
         ?string $target,
         ?array $symbols,
         ?bool $expand,
-        ?string $callback,
         array $expectedData
     ): void {
         $liveAction = new Live(
             $target,
             $symbols,
-            $expand,
-            $callback
+            $expand
         );
 
         self::assertEquals($expectedData, $liveAction->getData());
@@ -108,7 +103,6 @@ class LiveTest extends TestCase
             TargetCurrency::UAH,
             null,
             null,
-            null,
             [
                 'target' => TargetCurrency::UAH,
             ],
@@ -117,7 +111,6 @@ class LiveTest extends TestCase
         yield 'with-optional-symbols' => [
             null,
             [CryptoCurrency::BTC],
-            null,
             null,
             [
                 'symbols' => [CryptoCurrency::BTC],
@@ -128,7 +121,6 @@ class LiveTest extends TestCase
             null,
             null,
             true,
-            null,
             [
                 'expand' => 1,
             ],
@@ -138,7 +130,6 @@ class LiveTest extends TestCase
             null,
             null,
             false,
-            null,
             [
                 'expand' => 0,
             ],
@@ -148,22 +139,17 @@ class LiveTest extends TestCase
             null,
             null,
             null,
-            'some_callback',
-            [
-                'callback' => 'some_callback',
-            ],
+            [],
         ];
 
         yield 'with-filled-optional' => [
             TargetCurrency::UAH,
             [CryptoCurrency::BTC],
             true,
-            'some_callback',
             [
                 'target' => TargetCurrency::UAH,
                 'symbols' => [CryptoCurrency::BTC],
                 'expand' => 1,
-                'callback' => 'some_callback',
             ],
         ];
     }
