@@ -37,15 +37,13 @@ $from = CryptoCurrency::BTC;
 $to = CryptoCurrency::ETC;
 $amount = 12.25;
 $date = new DateTimeImmutable('2020-01-01');
-$callback = 'some_callback';
 
 try {
     $convertAction = new ConvertAction(
         $from,
         $to,
         $amount,
-        $date,
-        $callback
+        $date
     );
 } catch (InvalidArgumentException $e) {
     /**
@@ -95,7 +93,7 @@ $convertInfo = $convertResponse->getInfo();
 /*
  * The conversion result.
  */
-$convertResponse->getResult();
+$result = $convertResponse->getResult();
 
 /* All response classes implements JsonSerializable interface. */
 $jsonRepresentation = json_encode($convertResponse, JSON_THROW_ON_ERROR);

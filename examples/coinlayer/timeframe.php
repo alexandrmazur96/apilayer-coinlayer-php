@@ -39,7 +39,6 @@ $endDate = new DateTimeImmutable('2020-01-25');
 $targetCurrency = TargetCurrency::UAH;
 $cryptoCurrencies = [CryptoCurrency::BTC, CryptoCurrency::CLD];
 $expand = false;
-$callback = 'some_callback';
 
 try {
     $timeframeAction = new TimeframeAction(
@@ -47,8 +46,7 @@ try {
         $endDate,
         $targetCurrency,
         $cryptoCurrencies,
-        $expand,
-        $callback
+        $expand
     );
 } catch (InvalidArgumentException $e) {
     /**
@@ -86,7 +84,7 @@ $terms = $timeframeResponse->getTerms();
 $privacy = $timeframeResponse->getPrivacy();
 
 /* Indicates that request was performed to /timeframe endpoint. */
-$timeframeResponse->isTimeframe();
+$isTimeframe = $timeframeResponse->isTimeframe();
 
 /* Methods below just reflect the same request parameters. */
 $targetCurrency = $timeframeResponse->getTarget();

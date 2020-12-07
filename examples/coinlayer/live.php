@@ -37,14 +37,12 @@ try {
 $targetCurrency = TargetCurrency::UAH;
 $cryptoCurrencies = [CryptoCurrency::BTC, CryptoCurrency::BQ];
 $expand = false;
-$callback = 'some_callback';
 
 try {
     $liveAction = new LiveAction(
         $targetCurrency,
         $cryptoCurrencies,
-        $expand,
-        $callback
+        $expand
     );
 } catch (InvalidArgumentException $e) {
     /**
@@ -85,7 +83,7 @@ $privacy = $liveResponse->getPrivacy();
 $targetCurrency = $liveResponse->getTarget();
 
 /* Request performing timestamp */
-$liveResponse->getTimestamp();
+$timestamp = $liveResponse->getTimestamp();
 
 /* A JSON array containing the requested cryptocurrency data. */
 $rates = $liveResponse->getRates();

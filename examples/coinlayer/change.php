@@ -39,15 +39,13 @@ $startDate = new DateTimeImmutable('2020-01-01');
 $endDate = new DateTimeImmutable('2020-01-25');
 $target = TargetCurrency::UAH;
 $symbols = [CryptoCurrency::BTC, CryptoCurrency::ETC];
-$callback = 'some_callback';
 
 try {
     $changeAction = new ChangeAction(
         $startDate,
         $endDate,
         $target,
-        $symbols,
-        $callback
+        $symbols
     );
 } catch (InvalidArgumentException $e) {
     /**

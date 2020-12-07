@@ -13,7 +13,7 @@ class ListTest extends TestCase
 {
     public function testGetEndpoint(): void
     {
-        $listAction = new ListAction(null);
+        $listAction = new ListAction();
         self::assertEquals(ActionInterface::ENDPOINT_LIST, $listAction->getEndpoint());
     }
 

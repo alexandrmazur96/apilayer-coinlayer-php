@@ -38,15 +38,13 @@ $date = new DateTimeImmutable('2020-01-01');
 $target = TargetCurrency::UAH;
 $symbols = [CryptoCurrency::BTC, CryptoCurrency::ETH];
 $expand = false;
-$callback = 'some_callback';
 
 try {
     $historicalAction = new HistoricalAction(
         $date,
         $target,
         $symbols,
-        $expand,
-        $callback
+        $expand
     );
 } catch (InvalidArgumentException $e) {
     /**

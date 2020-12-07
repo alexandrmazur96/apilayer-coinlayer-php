@@ -33,11 +33,7 @@ try {
     die(1);
 }
 
-$callback = 'some_callback';
-
-$listAction = new ListAction(
-    $callback // optional
-);
+$listAction = new ListAction();
 
 try {
     /** @var ListResponse $listResponse */
