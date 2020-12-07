@@ -19,10 +19,7 @@ class ListTest extends TestCase
 
     public function testGetData(): void
     {
-        $listAction = new ListAction(null);
+        $listAction = new ListAction();
         self::assertEquals([], $listAction->getData());
-
-        $listAction = new ListAction('some_callback');
-        self::assertEquals(['callback' => 'some_callback'], $listAction->getData());
     }
 }
