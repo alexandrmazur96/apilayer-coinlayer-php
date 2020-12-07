@@ -16,9 +16,9 @@ class ApiFailedResponseException extends Exception
      * @param array $rawErrorResponse
      */
     public function __construct(
-        $message = "",
-        $code = 0,
-        Throwable $previous = null,
+        string $message,
+        int $code,
+        ?Throwable $previous,
         array $rawErrorResponse
     ) {
         parent::__construct($message, $code, $previous);
