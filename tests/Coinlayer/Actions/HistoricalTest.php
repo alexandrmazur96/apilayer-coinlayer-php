@@ -24,7 +24,6 @@ class HistoricalTest extends TestCase
             new DateTimeImmutable('2020-01-01'),
             null,
             null,
-            null,
             null
         );
 
@@ -47,7 +46,6 @@ class HistoricalTest extends TestCase
             new DateTimeImmutable('2020-01-01'),
             $target,
             $symbols,
-            null,
             null
         );
     }
@@ -57,7 +55,6 @@ class HistoricalTest extends TestCase
      * @param string|null $target
      * @param string[]|null $symbols
      * @param bool|null $expand
-     * @param string|null $callback
      * @param array $expectedData
      * @throws InvalidArgumentException
      */
@@ -65,15 +62,13 @@ class HistoricalTest extends TestCase
         ?string $target,
         ?array $symbols,
         ?bool $expand,
-        ?string $callback,
         array $expectedData
     ): void {
         $historicalAction = new Historical(
             new DateTimeImmutable('2020-01-01'),
             $target,
             $symbols,
-            $expand,
-            $callback
+            $expand
         );
 
         $actualData = $historicalAction->getData();
@@ -113,14 +108,12 @@ class HistoricalTest extends TestCase
             TargetCurrency::UAH,
             null,
             null,
-            null,
             ['target' => TargetCurrency::UAH],
         ];
 
         yield 'with-optional-symbols' => [
             null,
             [CryptoCurrency::BTC],
-            null,
             null,
             ['symbols' => [CryptoCurrency::BTC]],
         ];
@@ -129,7 +122,6 @@ class HistoricalTest extends TestCase
             null,
             null,
             true,
-            null,
             ['expand' => 1],
         ];
 
@@ -137,7 +129,6 @@ class HistoricalTest extends TestCase
             null,
             null,
             false,
-            null,
             ['expand' => 0],
         ];
 
@@ -145,20 +136,17 @@ class HistoricalTest extends TestCase
             null,
             null,
             null,
-            'some_callback',
-            ['callback' => 'some_callback'],
+            [],
         ];
 
         yield 'with-filled-optional' => [
             TargetCurrency::UAH,
             [CryptoCurrency::BTC],
             true,
-            'some_callback',
             [
                 'target' => TargetCurrency::UAH,
                 'symbols' => [CryptoCurrency::BTC],
                 'expand' => 1,
-                'callback' => 'some_callback',
             ],
         ];
     }
