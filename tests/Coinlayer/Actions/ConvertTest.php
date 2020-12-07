@@ -24,7 +24,6 @@ class ConvertTest extends TestCase
             CryptoCurrency::BTC,
             CryptoCurrency::BTS,
             12.125,
-            null,
             null
         );
 
@@ -52,7 +51,6 @@ class ConvertTest extends TestCase
             $from,
             $to,
             $amount,
-            null,
             null
         );
     }
@@ -60,18 +58,16 @@ class ConvertTest extends TestCase
     /**
      * @dataProvider getDataProvider
      * @param DateTimeImmutable|null $date
-     * @param string|null $callback
      * @param array $expectedData
      * @throws InvalidArgumentException
      */
-    public function testGetData(?DateTimeImmutable $date, ?string $callback, array $expectedData): void
+    public function testGetData(?DateTimeImmutable $date, array $expectedData): void
     {
         $convertAction = new Convert(
             CryptoCurrency::BTC,
             CryptoCurrency::BTG,
             12.125,
-            $date,
-            $callback
+            $date
         );
 
         $defaultExpectedData = [
@@ -114,7 +110,6 @@ class ConvertTest extends TestCase
     {
         yield 'with-optional-date' => [
             new DateTimeImmutable('2020-01-01'),
-            null,
             [
                 'date' => '2020-01-01',
             ],
@@ -122,18 +117,13 @@ class ConvertTest extends TestCase
 
         yield 'with-optional-callback' => [
             null,
-            'some_callback',
-            [
-                'callback' => 'some_callback',
-            ],
+            [],
         ];
 
         yield 'with-filled-optional' => [
             new DateTimeImmutable('2020-01-01'),
-            'some_callback',
             [
                 'date' => '2020-01-01',
-                'callback' => 'some_callback',
             ],
         ];
     }

@@ -13,8 +13,7 @@ use Apilayer\Coinlayer\Enums\CryptoCurrency;
  *      from:CryptoCurrency::*,
  *      to:CryptoCurrency::*,
  *      amount:float,
- *      date?:string,
- *      callback?:string
+ *      date?:string
  * }
  */
 class Convert implements ActionInterface
@@ -25,22 +24,19 @@ class Convert implements ActionInterface
     private string $to;
     private float $amount;
     private ?DateTimeInterface $date;
-    private ?string $callback;
 
     /**
      * @param string $from
      * @param string $to
      * @param float $amount
      * @param DateTimeInterface|null $date
-     * @param string|null $callback
      * @throws InvalidArgumentException
      */
     public function __construct(
         string $from,
         string $to,
         float $amount,
-        ?DateTimeInterface $date = null,
-        ?string $callback = null
+        ?DateTimeInterface $date = null
     ) {
         $this->assertSymbol($from);
         $this->assertSymbol($to);
@@ -55,7 +51,6 @@ class Convert implements ActionInterface
         $this->to = $to;
         $this->amount = $amount;
         $this->date = $date;
-        $this->callback = $callback;
     }
 
     /**
@@ -79,10 +74,6 @@ class Convert implements ActionInterface
 
         if ($this->date !== null) {
             $request['date'] = $this->date->format('Y-m-d');
-        }
-
-        if ($this->callback !== null) {
-            $request['callback'] = $this->callback;
         }
 
         return $request;
