@@ -14,8 +14,7 @@ use Apilayer\Coinlayer\Enums\CryptoCurrency;
  *      start_date:string,
  *      end_date:string,
  *      target?:TargetCurrency::*,
- *      symbols?:non-empty-list<CryptoCurrency::*>,
- *      callback?:string
+ *      symbols?:non-empty-list<CryptoCurrency::*>
  * }
  */
 class Change implements ActionInterface
@@ -28,22 +27,19 @@ class Change implements ActionInterface
     private ?string $target;
     /** @psalm-var non-empty-list<CryptoCurrency::*>|null */
     private ?array $symbols;
-    private ?string $callback;
 
     /**
      * @param DateTimeInterface $startDate
      * @param DateTimeInterface $endDate
      * @param string|null $target
      * @param string[]|null $symbols
-     * @param string|null $callback
      * @throws InvalidArgumentException
      */
     public function __construct(
         DateTimeInterface $startDate,
         DateTimeInterface $endDate,
         ?string $target = null,
-        ?array $symbols = null,
-        ?string $callback = null
+        ?array $symbols = null
     ) {
         $this->assertDates($startDate, $endDate);
         if ($target !== null) {
@@ -59,7 +55,6 @@ class Change implements ActionInterface
         $this->endDate = $endDate;
         $this->target = $target;
         $this->symbols = $symbols;
-        $this->callback = $callback;
     }
 
     /**
@@ -86,10 +81,6 @@ class Change implements ActionInterface
 
         if ($this->symbols !== null) {
             $request['symbols'] = $this->symbols;
-        }
-
-        if ($this->callback !== null) {
-            $request['callback'] = $this->callback;
         }
 
         return $request;
