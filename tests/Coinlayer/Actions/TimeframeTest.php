@@ -26,7 +26,6 @@ class TimeframeTest extends TestCase
             new DateTimeImmutable('2020-01-25'),
             null,
             null,
-            null,
             null
         );
 
@@ -57,7 +56,6 @@ class TimeframeTest extends TestCase
             $endDate,
             $target,
             $symbols,
-            null,
             null
         );
     }
@@ -67,7 +65,6 @@ class TimeframeTest extends TestCase
      * @param string|null $target
      * @param string[]|null $symbols
      * @param bool|null $expand
-     * @param string|null $callback
      * @param array $expectedData
      * @throws InvalidArgumentException
      */
@@ -75,7 +72,6 @@ class TimeframeTest extends TestCase
         ?string $target,
         ?array $symbols,
         ?bool $expand,
-        ?string $callback,
         array $expectedData
     ): void {
         $timeframeAction = new Timeframe(
@@ -83,8 +79,7 @@ class TimeframeTest extends TestCase
             new DateTimeImmutable('2020-01-25'),
             $target,
             $symbols,
-            $expand,
-            $callback
+            $expand
         );
 
         $defaultExpectedData = [
@@ -146,7 +141,6 @@ class TimeframeTest extends TestCase
             TargetCurrency::UAH,
             null,
             null,
-            null,
             [
                 'target' => TargetCurrency::UAH,
             ],
@@ -155,7 +149,6 @@ class TimeframeTest extends TestCase
         yield 'with-optional-symbols' => [
             null,
             [CryptoCurrency::BTC],
-            null,
             null,
             [
                 'symbols' => [CryptoCurrency::BTC],
@@ -166,7 +159,6 @@ class TimeframeTest extends TestCase
             null,
             null,
             true,
-            null,
             [
                 'expand' => 1,
             ],
@@ -176,7 +168,6 @@ class TimeframeTest extends TestCase
             null,
             null,
             false,
-            null,
             [
                 'expand' => 0,
             ],
@@ -186,22 +177,17 @@ class TimeframeTest extends TestCase
             null,
             null,
             null,
-            'some_callback',
-            [
-                'callback' => 'some_callback',
-            ],
+            [],
         ];
 
         yield 'with-filled-optional' => [
             TargetCurrency::UAH,
             [CryptoCurrency::BTC],
             true,
-            'some_callback',
             [
                 'target' => TargetCurrency::UAH,
                 'symbols' => [CryptoCurrency::BTC],
                 'expand' => 1,
-                'callback' => 'some_callback',
             ],
         ];
     }
